@@ -1,3 +1,33 @@
+# prompt.sh
+
+Only tested on MacOS because I'm a sad little consumer.
+
+My use for this is to copy `prompt.sh` to `~/bash.d/prompt.sh` and then in my
+bash profile file (usually `~/.bash_profile` or `~/.bashrc`), add this line:
+
+      source ~/bash.d/prompt.sh
+
+Be prepared! This does some opinionated things to your command line interface
+that you may not like. I **strongly** recommend editing this before using.
+Some specific things you may not like (note: this is also the entire feature set
+of this script):
+
+* Read up on the HISTTIMEFORMAT, histappend, etc. stuff. I like all of my
+  terminals to feed into the same history file, and use `<ctrl>-r` a lot to find
+  specific commands.
+* The `set -o vi` is going to make your command line accept VIM keyboard
+  shortcuts, which can be really confusing. If you didn't read the previous
+  sentence and think "OH JOY," I recommend deleting that line (line 10 as of
+  this writing).
+* It's gonna make your prompt look like my prompt:
+
+      tweigel@medusa ~ $  # home directory, just chillin
+      tweigel@medusa Documents $  # in a directory called Documents
+      p3dev║tweigel@medusa ~ $  # when using a python virtual env
+      tweigel@medusa proj║master $  # master branch of a git repo
+      p3║tweigel@medusa proj║test $  # test branch with p3 virtual env
+
+
 # pip.sh
 
 Only tested on MacOS because I'm a sad little consumer.

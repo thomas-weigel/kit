@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
 
 __py_main() {
-  complete -o default -F __pip_autocomplete pip
-  complete -o default -F __pip_autocomplete pip3
+  return 0
 }
 
 
 py.outline() {
   local -r docs="${1:-}"
-  if [[ -n $docs ]]; then
-    if [[ $docs == '--docs' ]]; then
-      shift;
-      __py.outline_with_docs $@
-    fi
+  if [[ -n $docs && $docs == '--docs' ]]; then
+    shift;
+    __py.outline_with_docs $@
   else
     __py.outline_without_docs $@
   fi
@@ -68,11 +65,5 @@ __py.outline_with_docs() {
     $@  # any additional arguments you want to pass in
 }
 
-
-__pip_autocomplete() {
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
-}
 
 __py_main

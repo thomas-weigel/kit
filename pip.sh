@@ -6,6 +6,14 @@ __pip_main() {
 }
 
 
+pip.updateall() {
+  pip install \
+    --upgrade \
+    --use-feature=2020-resolver \
+    -r <(pip freeze | cut -d '=' -f 1)
+}
+
+
 __pip_autocomplete() {
     COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
                    COMP_CWORD=$COMP_CWORD \

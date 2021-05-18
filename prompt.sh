@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-export HISTCONTROL=100000
+export HISTCONTROL='ignorespace:ignoredups'
+export HISTIGNORE='history:ls:ll:pwd:rpg.ls:venv.ls'
+export HISTFILESIZE=1000000
 export HISTSIZE=100000
 shopt -s histappend
 shopt -s cmdhist
-export HISTTIMEFORMAT='%F %T'
+export HISTTIMEFORMAT='%F %T '
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 set -o vi

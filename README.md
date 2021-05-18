@@ -107,8 +107,8 @@ This manages python virtual environments for you, in a hidden home directory
 
 Only tested on MacOS because I'm a sad little consumer.
 
-My use for this is to copy `aws.sh` to `~/bash.d/aws.sh` and then in my bash
-profile, add this line:
+My use for this is to copy `aws.sh` and all of the `aws*.sh` files to
+`~/bash.d/aws.sh` and then in my bash profile, add this line:
 
       source ~/bash.d/aws.sh
 
@@ -116,10 +116,26 @@ A growing collection of shortcut commands for the specific AWS CLI environment
 I'm in at the moment. Possibly more of an example of the work-in-progress than
 an actual tool for general use.
 
-      aws.ls-ec2-names  # finds all EC2 Name tags in your current configured profile
-      aws.ec2-by-name   # returns the EC2 instance-id from a Name tag
-      aws.ssm           # connects via SSM SSH to an EC2 instance by Name tag
+      # aws.sh core
+      aws.region            # get current region of current profile
+      aws.accountid         # get account ID of current profile
+      aws.whoami            # get user/role of current profile
 
+      # aws_ec2.sh
+      aws.ec2               # various EC2-related sub-tasks:
+        ls [REGION]         # lists name tags of EC2 instances
+        ssm NAME [REGION]   # connects via SSM to EC2 instance by name tag
+      aws.ls-ec2-names      # older variant of "aws.ec2 ls"
+      aws.ec2-by-name       # finds the instance ID(s) for an EC2 name tag
+      aws.ssm NAME [REGION] # older variant of "aws.ec2 ssm"
+
+      # aws_org.sh
+      aws.org_table         # prints out a useful outline of AWS Organizations
+      # there are other functions, but they're all just in support of
+      # aws.org_table
+
+      # aws_profile_management.sh
       aws.ls            # lists profiles for `aws configure`
       aws.profile       # sets AWS_PROFILE for you; can be used with '--sso'
+      # note that aws.profile autocompletes from aws.ls
 

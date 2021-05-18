@@ -28,6 +28,24 @@ of this script):
       p3║tweigel@medusa proj║test $  # test branch with p3 virtual env
 
 
+# git.sh
+
+Only tested on MacOS because I'm a sad little consumer.
+
+My use for this is to copy `git.sh` to `~/bash.d/git.sh` and then in my
+bash profile file (usually `~/.bash_profile` or `~/.bashrc`), add this line:
+
+      source ~/bash.d/git.sh
+
+This makes a simple function called `git.lastmodified` available to my bash
+shell. This returns the last git log date for a directory (or the current
+directory by default). For example, you can do something like this:
+
+      $ cd ~/myrepos/
+      $ git.lastmodified kit/
+      2021-05-17
+
+
 # pip.sh
 
 Only tested on MacOS because I'm a sad little consumer.

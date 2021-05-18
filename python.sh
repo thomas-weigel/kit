@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 __py_main() {
-  return 0
+    mkdir -p "${HOME}/.venv"
 }
 
 

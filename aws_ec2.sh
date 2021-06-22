@@ -9,20 +9,30 @@ aws.ec2() {
 
             aws ec2 describe-instances \
               --region $region \
-              --query "Reservations[].Instances[?State.Name == 'running'].Tags[][?Key == 'Name'].Value" \
+              --query "Reservations[].Instances[?State.Name=='running'].Tags[][?Key=='Name'].Value" \
               --output text
             ;;
-      ssm)
-          local name="${2:-}"
-          local region="${3:-$(aws.region)}"
-          aws.ssm $name $region
-          ;;
-      *)
-          echo 'aws.ec2 ls            lists names of ec2 instances in current region'
-          echo 'aws.ec2 ls $region    as above, for given region'
-          echo 'aws.ec2 ssm $name     attempts to connect via SSM to named ec2 instance'
-          echo 'aws.ec2 ssm $name $region   as above, for given region'
-          ;;
+        vpcs)
+            local region="${2:-$(aws.region)}"
+            aws ec2 describe-instances \
+              --region $region \
+              --query 'Reservations[].Instances[].{Instance:InstanceId,Instance:VpcId,Name:Tags[?Key==`Name`]|[0].Value}' \
+              --output text \
+              | sort -u | column -t
+            ;;
+        ssm)
+            local name="${2:-}"
+            local region="${3:-$(aws.region)}"
+            aws.ssm $name $region
+            ;;
+        *)
+            echo 'aws.ec2 ls            lists names of ec2 instances in current region'
+            echo 'aws.ec2 ls $region    as above, for given region'
+            echo 'aws.ec2 vpcs          lists names of VPCs in current region'
+            echo 'aws.ec2 vpcs $region  as above, for given region'
+            echo 'aws.ec2 ssm $name     attempts to connect via SSM to named ec2 instance'
+            echo 'aws.ec2 ssm $name $region   as above, for given region'
+            ;;
     esac
 }
 
@@ -66,5 +76,8 @@ aws.ssm() {  # connect to an EC2 instance via SSM by its Name tag
         (exit 1)
     fi
 
-    aws ssm start-session --target $instance
+    aws ssm start-session \
+      --target $instance \
+      --document-name AWS-StartInteractiveCommand \
+      --parameters 'command="bash"'
 }

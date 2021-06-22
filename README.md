@@ -125,6 +125,7 @@ an actual tool for general use.
       aws.ec2               # various EC2-related sub-tasks:
         ls [REGION]         # lists name tags of EC2 instances
         ssm NAME [REGION]   # connects via SSM to EC2 instance by name tag
+        vpcs [REGION]       # list VPCs by name
       aws.ls-ec2-names      # older variant of "aws.ec2 ls"
       aws.ec2-by-name       # finds the instance ID(s) for an EC2 name tag
       aws.ssm NAME [REGION] # older variant of "aws.ec2 ssm"

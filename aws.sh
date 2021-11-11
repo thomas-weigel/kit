@@ -2,9 +2,11 @@
 
 __aws_main() {
     complete -C aws_completer aws
-    source ~/bash.d/aws_profile_management.sh
-    source ~/bash.d/aws_ec2.sh
-    source ~/bash.d/aws_org.sh
+
+    local -r scripts_dir="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)"
+    source "${scripts_dir}/aws_profile_management.sh"
+    source "${scripts_dir}/aws_ec2.sh"
+    source "${scripts_dir}/aws_org.sh"
 }
 
 # What follows are some useful aliases, written as functions for ease of reading

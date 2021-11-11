@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+
+# check if git-completion.sh from https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+# is installed
+scripts_dir="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)"
+if [[ -f "${scripts_dir}/git-completion.bash" ]]; then
+  source "${scripts_dir}/git-completion.bash"
+fi
+
+
 git.lastmodified() {  # Returns the last git log date for the given directory
   # This is only moderately useful by itself; its real purpose is to be used in
   # other scripts and command-line fu where you just need the date in a simple

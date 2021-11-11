@@ -105,10 +105,10 @@ This manages python virtual environments for you, in a hidden home directory
 
 # aws.sh
 
-Only tested on MacOS because I'm a sad little consumer.
+Tested on Ubuntu Linux Server and MacOS.
 
-My use for this is to copy `aws.sh` and all of the `aws*.sh` files to
-`~/bash.d/aws.sh` and then in my bash profile, add this line:
+My use for this is to copy `aws.sh` and all of the `aws*` files to `~/bash.d/`
+and then in my bash profile, add this line:
 
       source ~/bash.d/aws.sh
 
@@ -123,17 +123,23 @@ an actual tool for general use.
 
       # aws_ec2.sh
       aws.ec2               # various EC2-related sub-tasks:
+        id NAME [REGION]    # gives Instance ID by name
+        vpcs [REGION]       # lists VPCs and the EC2 instances in each
         ls [REGION]         # lists name tags of EC2 instances
         ssm NAME [REGION]   # connects via SSM to EC2 instance by name tag
+        port NAME PORT [REGION]  # port-forwarding by name and port
+        proxy NAME [REGION] # SSH simulation for applications like DataGrip
         vpcs [REGION]       # list VPCs by name
-      aws.ls-ec2-names      # older variant of "aws.ec2 ls"
-      aws.ec2-by-name       # finds the instance ID(s) for an EC2 name tag
-      aws.ssm NAME [REGION] # older variant of "aws.ec2 ssm"
+      aws.ls-ec2-names      # deprecated variant of "aws.ec2 ls"
+      aws.ec2-by-name       # deprecated variant of "aws.ec2 id"
+      aws.ssm NAME [REGION] # deprecated variant of "aws.ec2 ssm"
 
       # aws_org.sh
       aws.org_table         # prints out a useful outline of AWS Organizations
-      # there are other functions, but they're all just in support of
-      # aws.org_table
+      # NOTE: this will attempt to use the aws_org.py script, if you have
+      # python3 with boto3 installed, but has a pure AWS CLI fallback. The CLI
+      # fallback is significantly slower, however, especially if you have a lot
+      # of accounts.
 
       # aws_profile_management.sh
       aws.ls            # lists profiles for `aws configure`
